@@ -1,5 +1,8 @@
 package assignment3;
 
+import java.util.Iterator;
+
+
 /**
  *	@elements	:	Objects of type E
  *	@structure	:	Linear
@@ -9,10 +12,9 @@ package assignment3;
  *	@precondition:	-
  *	@postcondition:	The new BinaryTree-object is an empty tree
  *
- * @param <E>
  */
 
-public interface BinaryTreeInterface<E extends Data> extends Clonable {
+public interface BinaryTreeInterface<E extends Data> {
 	
 	/**
 	 * Initialize this BinaryTree object as an empty tree
@@ -32,7 +34,7 @@ public interface BinaryTreeInterface<E extends Data> extends Clonable {
 	 * @precondition	:	Element e is not null
 	 * @postcondition	:	Element e is added to this BinaryTree, current points at e
 	 */
-	BinaryTree<E> insert(E e);
+	BinaryTree<E> insert(E d);
 	
 	/**
 	 * Remove this element current points to in this BinaryTree and 
@@ -91,6 +93,22 @@ public interface BinaryTreeInterface<E extends Data> extends Clonable {
 	 * 						false	:	BinaryTree is not empty
 	 */
 	boolean isEmpty();
+	
+	/** 
+	 * @postcondition 	:	The data stored in the binary search tree was iterated in 
+	 *						monotonically non-decreasing order and was added in this 
+	 * 						order to an object of the type Iterator. 
+	 * 						This object of the type Iterator was subsequently returned. 
+	 **/ 
+	 Iterator ascendingIterator (); 
+	 
+	 /** 
+	 * @postcondition	:	The data stored in the binary search tree was iterated 
+	 *						in monotonically non-increasing order and was added in 
+	 *						this order to an object of the type Iterator. 
+	 *						This object of the type Iterator was subsequently returned. 
+	 **/ 
+	 Iterator descendingIterator ();
 	
 	/**
 	 * Clone/deep-copy this BinaryTree
