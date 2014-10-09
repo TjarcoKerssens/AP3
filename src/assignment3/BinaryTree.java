@@ -5,7 +5,6 @@ import java.util.Iterator;
 public class BinaryTree<E extends Data> implements BinaryTreeInterface<E> {
 
 	protected TreeNode<E> list;
-	int counter;
 
 	@Override
 	public BinaryTree<E> init() {
@@ -32,9 +31,69 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E> {
 	}
 
 	@Override
-	public BinaryTree<E> remove() {
-
+	public BinaryTree<E> remove(E d) {
+				
+		TreeNode<E> root = getNode(getList(), d);
+		TreeNode<E> smallest = findSmallest(root);
+		
+		if (root.leftChild == null) {
+			replaceSubTree(root, root.rightChild, root.data);
+		} else if (root.rightChild == null) {
+			replaceSubTree(root, root.leftChild, root.data);
+		} else {
+			if (getParent(getList(), smallest.data) != root) {
+				replaceSubTree(smallest, smallest.rightChild, smallest.data);
+				smallest.rightChild = root.rightChild;
+				smallest = getParent(getList(), smallest.rightChild.data);
+			}
+		}
 		return this;
+	}	
+	
+	private TreeNode<E> replaceSubTree(TreeNode<E> root, TreeNode<E> rootChild, E d) {
+
+		TreeNode<E> parent = getParent(getList(), d);
+
+		if (parent == null) {
+			root = rootChild;
+		} else if (root == parent.leftChild) {
+			parent.leftChild = rootChild;
+		} else {
+			parent.rightChild = rootChild;
+		}		
+		return root;
+	}
+	
+	private TreeNode<E> findSmallest(TreeNode<E> node){
+		while(node.leftChild!=null){
+			node = node.leftChild;
+		}
+		return node;
+ 	}
+	
+	private TreeNode<E> getParent(TreeNode<E> root, E d) {
+		
+		if (root.leftChild != null) {
+			if (root.leftChild.data.compareTo(d) == 0) return root;
+			getParent(root.leftChild, d);
+		} 
+		else if (root.rightChild != null)  {
+			if (root.rightChild.data.compareTo(d) == 0) return root;
+			return getParent(root.rightChild, d);
+		}
+		return root;
+	}
+	
+	private TreeNode<E> getNode(TreeNode<E> root, E d) {
+		if (root.data.compareTo(d) == 0) {
+			return root;
+		} 
+		else if (root.data.compareTo(d) > 0) {
+			return getNode(root.leftChild, d);
+		} 
+		else {
+			return getNode(root.rightChild, d);
+		}
 	}
 
 	public TreeNode<E> getList() {
@@ -45,57 +104,38 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E> {
 		return list.data;
 	}
 
-	private TreeNode<E> findSmallest(TreeNode<E> node) {
-		while (node.leftChild != null) {
-			node = node.leftChild;
-		}
-		return node;
-	}
-
-
 	@Override
 	public boolean contains(E d) {
-		if (list == null) {
+		return contains(list, d);
+	}
+	
+	private boolean contains(TreeNode<E> root, E d) {
+		
+		if (root == null) {
 			return false;
 		}
-		if (list.data.compareTo(d) < 0) {
-			if (list.rightChild != null) {
-				list = list.rightChild;
-				return contains(d);
-			} else {
-				return false;
-			}
+		else if (root.data.compareTo(d) == 0) {
+			return true;
+		} 
+		else if (root.data.compareTo(d) > 0) {
+			return contains(root.leftChild, d);
+		} 
+		else {
+			return contains(root.rightChild, d);
 		}
-
-		if (list.data.compareTo(d) > 0) {
-			if (list.leftChild != null) {
-				list = list.leftChild;
-				return contains(d);
-			} else {
-				return false;
-			}
-		}
-
-		return true;
-
 	}
 
 	@Override
 	public int size() {
-		if (list == null) {
+		int counter = 1;
+		return size(list, counter);
+	}
+	
+	private int size(TreeNode<E> root, int counter) {
+		if (root == null) {
 			return 0;
 		}
-		if (!(list.leftChild == null)) {
-			counter++;
-			list = list.leftChild;
-			size();
-		}
-		if (!(list.rightChild == null)) {
-			counter++;
-			list = list.rightChild;
-			size();
-		}
-		return counter;
+		return counter + size(root.leftChild, counter) + size(root.rightChild, counter);
 	}
 
 	@Override
@@ -117,6 +157,15 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E> {
 
 	public BinaryTree<E> clone() {
 		return null;
+	}
+	
+	public  void inOrderTreeWalk(TreeNode<E> x) {
+		if (x != null) {
+			inOrderTreeWalk(x.leftChild);
+			System.out.print(x.data);
+			inOrderTreeWalk(x.rightChild);
+		}
+		
 	}
 
 }

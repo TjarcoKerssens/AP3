@@ -49,7 +49,7 @@ public interface BinaryTreeInterface<E extends Data> {
 	 * 						if the BinaryTree is not empty and E was the left child:
 	 * 									current point to parent node
 	 */
-	BinaryTree<E> remove();
+	BinaryTree<E> remove(E d);
 	
 		
 	/**
