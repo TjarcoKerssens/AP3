@@ -100,7 +100,7 @@ public interface BinaryTreeInterface<E extends Data> {
 	 * 						order to an object of the type Iterator. 
 	 * 						This object of the type Iterator was subsequently returned. 
 	 **/ 
-	 Iterator ascendingIterator (); 
+	 Iterator<E> ascendingIterator (); 
 	 
 	 /** 
 	 * @postcondition	:	The data stored in the binary search tree was iterated 
@@ -108,7 +108,7 @@ public interface BinaryTreeInterface<E extends Data> {
 	 *						this order to an object of the type Iterator. 
 	 *						This object of the type Iterator was subsequently returned. 
 	 **/ 
-	 Iterator descendingIterator ();
+	 Iterator<E> descendingIterator ();
 	
 	/**
 	 * Clone/deep-copy this BinaryTree

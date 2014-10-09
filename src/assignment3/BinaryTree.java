@@ -9,19 +9,21 @@ public class BinaryTree <E extends Data> implements BinaryTreeInterface<E> {
 	
 	@Override
 	public BinaryTree<E> init() {
-		list = null;
+		list=null;
 		return this;
 	}
 
 	@Override
 	public BinaryTree<E> insert(E d) {
-		
+		setFirst();
 		if (list == null) {
 			list = new TreeNode<E>(d);
 			
-		} else if (list.data.compareTo(d) < 0) {
+		} else if (list.data.compareTo(d) > 0) {
 			if (list.leftChild == null) {
-				list = list.leftChild = new TreeNode<E>(d, null, null, list);
+				list.leftChild = new TreeNode<E>(d, null, null, list);
+				list.leftChild.parent = list;
+				list = list.leftChild;
 			} else {
 				list = list.leftChild;
 				insert(d);
@@ -30,7 +32,9 @@ public class BinaryTree <E extends Data> implements BinaryTreeInterface<E> {
 			remove ();
 		} else {
 			if (list.rightChild == null) {
-				list = list.rightChild = new TreeNode<E>(d, null, null, list);
+				list.rightChild = new TreeNode<E>(d, null, null, list);
+				list.rightChild.parent = list;
+				list = list.rightChild;
 			} else {
 				list = list.rightChild;
 				insert(d);
@@ -41,7 +45,50 @@ public class BinaryTree <E extends Data> implements BinaryTreeInterface<E> {
 
 	@Override
 	public BinaryTree<E> remove() {
-		return null;
+		if(list.leftChild == null){
+			if(list.parent!=null && list.parent.leftChild.equals(list)){
+				list.rightChild.parent = list.parent;
+				list.parent.leftChild = list = list.rightChild;
+			}else if(list.parent!=null){
+				list.rightChild.parent = list.parent;
+				list.parent.rightChild = list = list.rightChild;
+			}else{
+				list.rightChild.parent = null;
+				list = list.rightChild;
+			}
+		}else if(list.rightChild == null){
+			if(list.parent!=null && list.parent.leftChild.equals(list)){
+				list.leftChild.parent = list.parent;
+				list.parent.leftChild = list = list.leftChild;
+			}else if(list.parent!=null){
+				list.leftChild.parent = list.parent;
+				list.parent.rightChild = list = list.leftChild;
+			}else{
+				list.leftChild.parent = null;
+				list = list.leftChild;
+			}
+		}else{
+			TreeNode<E> temp = findSmallest(list.rightChild);
+			list.data = temp.data;
+			list=temp;
+			remove();
+		}
+		return this;
+	}
+	
+	public TreeNode<E> getList() {
+		return list;
+	}
+	
+	public E retrieve(){
+		return list.data;
+	}
+	
+	private TreeNode<E> findSmallest(TreeNode<E> node){
+		while(node.leftChild!=null){
+			node = node.leftChild;
+		}
+		return node;
 	}
 
 	@Override
@@ -57,17 +104,30 @@ public class BinaryTree <E extends Data> implements BinaryTreeInterface<E> {
 
 	@Override
 	public boolean contains(E d) {
-		if (list == null || list.data == d) {
-			return true;
+		if(list==null){
+			return false;
 		}
-		if (list.data.compareTo(d) < 0) {
-			list = list.leftChild;
-			contains(d);
-		} else {
-			list = list.rightChild;
-			contains(d);
+		setFirst();		
+		if(list.data.compareTo(d)<0){
+			if(list.rightChild!=null){
+				list = list.rightChild;
+				return contains(d);
+			}else{
+				return false;
+			}
 		}
-		return false;
+		
+		if(list.data.compareTo(d)>0){
+			if(list.leftChild!=null){
+				list = list.leftChild;
+				return contains(d);
+			}else{
+				return false;
+			}
+		}
+		
+		return true;
+		
 	}
 
 	@Override
