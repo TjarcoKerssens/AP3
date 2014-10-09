@@ -4,18 +4,17 @@ package assignment3;
 class TreeNode<E extends Data> implements TreeNodeInterface<E> {
 
 	E data;
-	TreeNode<E> leftChild, rightChild, parent;
+	TreeNode<E> leftChild, rightChild;
 
 	public TreeNode (E d) {
-		this(d, null, null, null);
+		this(d, null, null);
 	}
 
 
-	public TreeNode (E data, TreeNode<E> leftChild, TreeNode<E> rightChild, TreeNode<E> parent) {
+	public TreeNode (E data, TreeNode<E> leftChild, TreeNode<E> rightChild) {
 		this.data = data == null ? null : (E) data.clone();
 		this.leftChild = leftChild;
 		this.rightChild = rightChild;
-		this.parent = parent;
 	}
 
 	

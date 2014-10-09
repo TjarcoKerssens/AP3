@@ -51,16 +51,7 @@ public interface BinaryTreeInterface<E extends Data> {
 	 */
 	BinaryTree<E> remove();
 	
-	
-	/**
-	 * Set current to the top element of the BinaryTree
-	 * 
-	 * @precondition 	:	-
-	 * @postcondition	:	true	:	Current points to the first/top element
-	 * 						false	:	BinaryTree is empty
-	 */
-	boolean setFirst();
-	
+		
 	/**
 	 * Search the BinaryTree for an element containing the parameters data,
 	 * current points to corresponding element if found
