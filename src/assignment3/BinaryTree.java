@@ -29,72 +29,36 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E> {
 		}
 		return root;
 	}
-
+	
 	@Override
 	public BinaryTree<E> remove(E d) {
-				
-		TreeNode<E> root = getNode(getList(), d);
-		TreeNode<E> smallest = findSmallest(root);
-		
-		if (root.leftChild == null) {
-			replaceSubTree(root, root.rightChild, root.data);
-		} else if (root.rightChild == null) {
-			replaceSubTree(root, root.leftChild, root.data);
-		} else {
-			if (getParent(getList(), smallest.data) != root) {
-				replaceSubTree(smallest, smallest.rightChild, smallest.data);
-				smallest.rightChild = root.rightChild;
-				smallest = getParent(getList(), smallest.rightChild.data);
-			}
-		}
+		list = remove(list, d);		
 		return this;
 	}	
 	
-	private TreeNode<E> replaceSubTree(TreeNode<E> root, TreeNode<E> rootChild, E d) {
+	private TreeNode<E> remove(TreeNode<E> root, E d) {
 
-		TreeNode<E> parent = getParent(getList(), d);
-
-		if (parent == null) {
-			root = rootChild;
-		} else if (root == parent.leftChild) {
-			parent.leftChild = rootChild;
-		} else {
-			parent.rightChild = rootChild;
-		}		
+		if( d.compareTo(root.data) < 0) {
+			root.leftChild = remove( root.leftChild, d);
+		} else if ( d.compareTo(root.data) > 0) {
+			root.rightChild= remove( root.rightChild, d);
+		} else if (root.leftChild != null && root.rightChild != null) {
+			root.data = findSmallest(root.rightChild).data;
+			root.rightChild = remove(root.rightChild, root.data);
+		}
+		else {
+			root = (root.leftChild != null) ? root.leftChild : root.rightChild;
+		}
 		return root;
 	}
 	
+
 	private TreeNode<E> findSmallest(TreeNode<E> node){
 		while(node.leftChild!=null){
 			node = node.leftChild;
 		}
 		return node;
  	}
-	
-	private TreeNode<E> getParent(TreeNode<E> root, E d) {
-		
-		if (root.leftChild != null) {
-			if (root.leftChild.data.compareTo(d) == 0) return root;
-			getParent(root.leftChild, d);
-		} 
-		else if (root.rightChild != null)  {
-			if (root.rightChild.data.compareTo(d) == 0) return root;
-			return getParent(root.rightChild, d);
-		}
-		return root;
-	}
-	
-	private TreeNode<E> getNode(TreeNode<E> root, E d) {
-		if (root.data.compareTo(d) == 0) {
-			return root;
-		} 
-		else if (root.data.compareTo(d) > 0) {
-			return getNode(root.leftChild, d);
-		} 
-		else {
-			return getNode(root.rightChild, d);
-		}
-	}
 
 	public TreeNode<E> getList() {
 		return list;
