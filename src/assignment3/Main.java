@@ -70,17 +70,17 @@ public class Main {
 			if (isIdentifier(in)) {
 				System.out.println(in.next());
 			} else {
-				in.next(); //ignore the non-identifier
+				in.next(); // ignore the non-identifier
 			}
 		}
 	}
-	
-	void printOutput(){
-		//print the tree
+
+	void printOutput() {
+		// print the tree
 	}
 
-	public static void main(String[] args) {		
-		new Main().run(args);
+	public static void main(String[] args) {
+		 new Main().run(args);
 	}
 
 }

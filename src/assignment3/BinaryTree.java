@@ -62,14 +62,6 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E> {
 		return node;
  	}
 
-	public TreeNode<E> getList() {
-		return list;
-	}
-
-	public E retrieve() {
-		return list.data;
-	}
-
 	@Override
 	public boolean contains(E d) {
 		return contains(list, d);
@@ -110,13 +102,13 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E> {
 	}
 
 	@Override
-	public Iterator ascendingIterator() {
+	public Iterator<E> ascendingIterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Iterator descendingIterator() {
+	public Iterator<E> descendingIterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -144,7 +136,7 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E> {
 
 	public BinaryTree<E> clone() {
 		BinaryTree<E> clone = new BinaryTree<E>();
-		clone.list = clone(getList());
+		clone.list = clone(list);
 		return clone;
 	}
 

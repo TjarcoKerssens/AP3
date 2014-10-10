@@ -32,39 +32,30 @@ public interface BinaryTreeInterface<E extends Data> {
 	 * @param 			:	e, the element to be added
 	 * @return 			:	This binary tree
 	 * @precondition	:	Element e is not null
-	 * @postcondition	:	Element e is added to this BinaryTree, current points at e
+	 * @postcondition	:	Element e is added to this BinaryTree
 	 */
 	BinaryTree<E> insert(E d);
 	
 	/**
-	 * Remove this element current points to in this BinaryTree and 
+	 * Remove the element given as parameter in this BinaryTree and 
 	 * set the correct pointers for the adjacent elements in this BinaryTree
 	 * 
 	 * @precondition	:	-
-	 * @postcondition	:	The element current pointed to is removed from the BinaryTree
-	 * 						Current points to	:	
-	 * 						if the BinaryTree is now Empty, null
-	 * 						if the BinaryTree is not empty and E was the right Child:
-	 * 									current points to left child of previous parent node
-	 * 						if the BinaryTree is not empty and E was the left child:
-	 * 									current point to parent node
+	 * @postcondition	:	The element is removed from the tree. The tree is possibly reformed to satisfy
+	 * 						the properties of a Binary Search Tree
 	 */
 	BinaryTree<E> remove(E d);
 	
 		
 	/**
-	 * Search the BinaryTree for an element containing the parameters data,
-	 * current points to corresponding element if found
+	 * Search the BinaryTree for an element containing the parameters data
 	 * 
 	 * @param			:	Data contained by the element
 	 * 
 	 * @precondition	:	-
 	 * @postcondition	:	true	:	BinaryTree contains an element equal to d
-	 * 									current points to the first element in the tree
-	 * 									that is equal to d
 	 * 						false	:	BinaryTree does not contain a similar element
-	 * 									if BinaryTree is empty, current points to null
-	 * 									if BinaryTree is not empty, current point to the last child
+	 * 									
 	 */
 	boolean contains(E d);
 	
