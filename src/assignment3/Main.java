@@ -3,11 +3,17 @@ package assignment3;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Main {
 	private boolean descending, lowercase;
+	private BinaryTree<Identifier> tree;
+
+	public Main() {
+		tree = new BinaryTree<Identifier>();
+	}
 
 	boolean isIdentifier(Scanner in) {
 		return in.hasNext(Pattern.compile("[a-zA-Z].*"));
@@ -15,9 +21,10 @@ public class Main {
 
 	void run(String[] args) {
 		if (args.length == 0) {
-			System.err.println("ussage: Main [options] filename <filename>");
+			System.out.println("ussage: Main [options] filename <filename>");
 		} else {
 			readInput(args);
+			printOutput();
 		}
 	}
 
@@ -29,9 +36,9 @@ public class Main {
 				parseText(in);
 			}
 		} catch (APException e) {
-			System.err.println(e.getMessage());
+			System.out.println(e.getMessage());
 		} catch (IndexOutOfBoundsException ie) {
-			System.err.println("ussage: Main [options] filename <filename>");
+			System.out.println("ussage: Main [options] filename <filename>");
 		}
 	}
 
@@ -64,23 +71,43 @@ public class Main {
 		return fileScanners;
 	}
 
-	void parseText(Scanner in) {
+	void parseText(Scanner in) throws APException {
 		in.useDelimiter(Pattern.compile("[^a-zA-Z0-9]+"));
 		while (in.hasNext()) {
 			if (isIdentifier(in)) {
-				System.out.println(in.next());
+				insertIdentifier(in);
 			} else {
 				in.next(); // ignore the non-identifier
 			}
 		}
 	}
 
+	private void insertIdentifier(Scanner in) throws APException {
+		String id = in.next();
+		Identifier identifier = new Identifier(id.charAt(0));
+		for (int i = 1; i < id.length(); i++) {
+			identifier.addCharacter(id.charAt(i));
+		}
+		if (lowercase) {
+			identifier.toLowerCase();
+		}
+		tree.insert(identifier);
+	}
+
 	void printOutput() {
-		// print the tree
+		Iterator<Identifier> i;
+		if (descending) {
+			i = tree.descendingIterator();
+		} else {
+			i = tree.ascendingIterator();
+		}
+		while (i.hasNext()) {
+			System.out.print(i.next() + " ");
+		}
 	}
 
 	public static void main(String[] args) {
-		 new Main().run(args);
+		new Main().run(args);
 	}
 
 }

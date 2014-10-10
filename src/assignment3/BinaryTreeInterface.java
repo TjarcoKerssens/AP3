@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 /**
  *	@elements	:	Objects of type E
- *	@structure	:	Linear
+ *	@structure	:	Binary tree
  *	@domain		:	All elements of type E
  *
  *	@constructor:	BinaryTree();
