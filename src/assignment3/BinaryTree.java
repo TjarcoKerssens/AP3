@@ -22,6 +22,9 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E> {
 		if (root == null) {
 			root =  new TreeNode<E>(d);
 		}
+		else if (root.data.compareTo(d) == 0) {
+			remove(d);
+		}
 		else if (root.data.compareTo(d)>0) {
 			root.leftChild = insert(root.leftChild, d);
 		}else{
@@ -45,8 +48,7 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E> {
 		} else if (root.leftChild != null && root.rightChild != null) {
 			root.data = findSmallest(root.rightChild).data;
 			root.rightChild = remove(root.rightChild, root.data);
-		}
-		else {
+		} else {
 			root = (root.leftChild != null) ? root.leftChild : root.rightChild;
 		}
 		return root;
@@ -118,10 +120,6 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	public BinaryTree<E> clone() {
-		return null;
-	}
 	
 	public  void inOrderTreeWalk(TreeNode<E> x) {
 		if (x != null) {
@@ -130,6 +128,24 @@ public class BinaryTree<E extends Data> implements BinaryTreeInterface<E> {
 			inOrderTreeWalk(x.rightChild);
 		}
 		
+	}
+	
+	private TreeNode<E> clone(TreeNode<E> root) {
+		
+		BinaryTree<E> clone = new BinaryTree<E>();
+
+		if (root != null) {
+			clone(root.leftChild);
+			clone.insert(root.data);
+			clone(root.rightChild);
+		}
+		return root;
+	}
+
+	public BinaryTree<E> clone() {
+		BinaryTree<E> clone = new BinaryTree<E>();
+		clone.list = clone(getList());
+		return clone;
 	}
 
 }
