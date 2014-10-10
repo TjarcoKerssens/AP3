@@ -91,7 +91,12 @@ public class Main {
 		if (lowercase) {
 			identifier.toLowerCase();
 		}
-		tree.insert(identifier);
+
+		if (tree.contains(identifier)) {
+			tree.remove(identifier);
+		} else {
+			tree.insert(identifier);
+		}
 	}
 
 	void printOutput() {
