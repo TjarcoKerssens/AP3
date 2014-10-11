@@ -91,6 +91,7 @@ public interface IdentifierInterface extends Data {
 	
 	/**
 	 * Converts all characters in this identifier to lower case
+	 * 
 	 * @precondition -
 	 * @postcondition all the characters present in this identifier are converted to lower-case
 	 */

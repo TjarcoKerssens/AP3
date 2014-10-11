@@ -26,8 +26,7 @@ public interface BinaryTreeInterface<E extends Data> {
 	
 	/**
 	 * Add an element to the BinaryTree with the correct pointers for
-	 * left child, right child and it's parent node, current is set to
-	 * this element
+	 * left child and right child
 	 * 
 	 * @param 			:	e, the element to be added
 	 * @return 			:	This binary tree
@@ -40,6 +39,7 @@ public interface BinaryTreeInterface<E extends Data> {
 	 * Remove the element given as parameter in this BinaryTree and 
 	 * set the correct pointers for the adjacent elements in this BinaryTree
 	 * 
+	 * @param			:	d, The data contained by the element to be removed
 	 * @precondition	:	-
 	 * @postcondition	:	The element is removed from the tree. The tree is possibly reformed to satisfy
 	 * 						the properties of a Binary Search Tree

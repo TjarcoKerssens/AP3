@@ -107,7 +107,7 @@ public class Main {
 			i = tree.ascendingIterator();
 		}
 		while (i.hasNext()) {
-			System.out.print(i.next() + " ");
+			System.out.println(i.next() + " ");
 		}
 	}
 
