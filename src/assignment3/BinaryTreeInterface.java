@@ -80,7 +80,8 @@ public interface BinaryTreeInterface<E extends Data> {
 	 * @postcondition 	:	The data stored in the binary search tree was iterated in 
 	 *						monotonically non-decreasing order and was added in this 
 	 * 						order to an object of the type Iterator. 
-	 * 						This object of the type Iterator was subsequently returned. 
+	 * 						This object of the type It
+	 * erator was subsequently returned. 
 	 **/ 
 	 Iterator<E> ascendingIterator (); 
 	 
@@ -96,7 +97,7 @@ public interface BinaryTreeInterface<E extends Data> {
 	 * Clone/deep-copy this BinaryTree
 	 * 
 	 * @precondition		:	-
-	 * @postcondition	:	A deep-copy if this BinaryTree has been returned
+	 * @postcondition	:	A deep-copy of this BinaryTree has been returned
 	 */
 	BinaryTree<E> clone ();
 	

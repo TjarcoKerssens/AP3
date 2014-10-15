@@ -63,8 +63,8 @@ public class Main {
 			try {
 				fileScanners[i] = new Scanner(f);
 			} catch (FileNotFoundException e) {
-				throw new APException("The file: " + files[i]
-						+ " does not exist");
+				throw new APException("The file: '" + files[i]
+						+ "' does not exist");
 			}
 		}
 

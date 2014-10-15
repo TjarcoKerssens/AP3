@@ -107,11 +107,14 @@ public class Identifier implements IdentifierInterface {
 
 		Identifier compare = ((Identifier) o);
 		int i = 0;
-		while (Math.min(this.nextIndex, compare.nextIndex)-1 > i
-				&& (compare.getCharacter(i) == this.getCharacter(i))){
+		while (Math.min(this.nextIndex, compare.nextIndex) - 1 > i
+				&& (compare.getCharacter(i) == this.getCharacter(i))) {
 			i++;
 		}
-		
+
+		if (compare.getCharacter(i) == this.getCharacter(i)) {
+			return this.nextIndex - compare.nextIndex;
+		}
 		return this.getCharacter(i) - compare.getCharacter(i);
 	}
 
