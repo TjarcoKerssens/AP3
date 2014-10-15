@@ -40,7 +40,7 @@ public interface BinaryTreeInterface<E extends Data> {
 	 * set the correct pointers for the adjacent elements in this BinaryTree
 	 * 
 	 * @param			:	d, The data contained by the element to be removed
-	 * @precondition	:	-
+	 * @precondition	:	The element is contained in the tree.
 	 * @postcondition	:	The element is removed from the tree. The tree is possibly reformed to satisfy
 	 * 						the properties of a Binary Search Tree
 	 */
